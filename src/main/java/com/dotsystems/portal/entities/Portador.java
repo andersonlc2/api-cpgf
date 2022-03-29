@@ -1,7 +1,9 @@
 package com.dotsystems.portal.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @SequenceGenerator(name="seq_portador", initialValue=10000, allocationSize=100)
@@ -29,6 +34,10 @@ public class Portador implements Serializable {
 	@JoinColumn(name = "unidadeGestoraId")
 	private UnidadeGestora unidadeGestora;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "portador")
+	private Set<Transacao> transacoes = new HashSet<>();
+	
 	public Portador() {
 	}
 
