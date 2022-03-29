@@ -15,15 +15,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@SequenceGenerator(name="seq_portador", initialValue=10000, allocationSize=100)
+@SequenceGenerator(name = "seq_portador", initialValue = 10000, allocationSize = 100)
 @Table(name = "tb_portador")
 public class Portador implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_portador")
 	private Long id;
@@ -32,12 +33,13 @@ public class Portador implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "unidadeGestoraId")
+	@JsonBackReference
 	private UnidadeGestora unidadeGestora;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "portador")
+	@JsonManagedReference
 	private Set<Transacao> transacoes = new HashSet<>();
-	
+
 	public Portador() {
 	}
 
@@ -95,5 +97,5 @@ public class Portador implements Serializable {
 			return false;
 		Portador other = (Portador) obj;
 		return Objects.equals(id, other.id);
-	}	
+	}
 }

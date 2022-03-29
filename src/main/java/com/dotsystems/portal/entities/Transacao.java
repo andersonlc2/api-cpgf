@@ -13,15 +13,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@SequenceGenerator(name="seq_transacao", initialValue=1000, allocationSize=100)
+@SequenceGenerator(name = "seq_transacao", initialValue = 1000, allocationSize = 100)
 @Table(name = "tb_transacao")
 public class Transacao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_transacao")
 	private Long id;
@@ -30,12 +31,13 @@ public class Transacao implements Serializable {
 	private String doc_favorecido;
 	private String nome_favorecido;
 	private String desc_transacao;
-    @JsonFormat(pattern="yyyy-MM-dd", timezone="America/Sao_Paulo")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "America/Sao_Paulo")
 	private LocalDate dt_transacao;
 	private Double valor;
 
 	@ManyToOne
 	@JoinColumn(name = "portadorId")
+	@JsonBackReference
 	private Portador portador;
 
 	public Transacao() {
