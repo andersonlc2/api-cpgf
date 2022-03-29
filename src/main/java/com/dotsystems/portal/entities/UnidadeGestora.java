@@ -7,31 +7,39 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "tb_orgao_superior")
-public class OrgaoSuperior implements Serializable {
+@Table(name = "tb_unidade_gestora")
+public class UnidadeGestora implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	private Long id;
 	private String nome;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "orgaoSuperior")
-	private Set<Orgao> orgaos = new HashSet<>();
 
-	public OrgaoSuperior() {
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "orgaoId")
+	private Orgao orgao;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "unidadeGestora")
+	private Set<Portador> portadores = new HashSet<>();
+
+	public UnidadeGestora() {
 	}
 
-	public OrgaoSuperior(Long id, String nome) {
+	public UnidadeGestora(Long id, String nome, Orgao orgao) {
 		this.id = id;
 		this.nome = nome;
+		this.orgao = orgao;
 	}
 
 	public Long getId() {
@@ -50,13 +58,21 @@ public class OrgaoSuperior implements Serializable {
 		this.nome = nome;
 	}
 
-	public Set<Orgao> getOrgao() {
-		return orgaos;
+	public Orgao getOrgao() {
+		return orgao;
 	}
-	
+
+	public void setOrgao(Orgao orgao) {
+		this.orgao = orgao;
+	}
+
+	public Set<Portador> getPortadores() {
+		return portadores;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, nome);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -67,8 +83,8 @@ public class OrgaoSuperior implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		OrgaoSuperior other = (OrgaoSuperior) obj;
-		return Objects.equals(id, other.id) && Objects.equals(nome, other.nome);
+		UnidadeGestora other = (UnidadeGestora) obj;
+		return Objects.equals(id, other.id);
 	}
 
 }

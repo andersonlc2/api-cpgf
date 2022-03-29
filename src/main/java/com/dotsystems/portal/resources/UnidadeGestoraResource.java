@@ -9,25 +9,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dotsystems.portal.entities.OrgaoSuperior;
-import com.dotsystems.portal.services.OrgaoSuperiorService;
+import com.dotsystems.portal.entities.UnidadeGestora;
+import com.dotsystems.portal.services.UnidadeGestoraService;
 
 @RestController
-@RequestMapping(value = "/orgaos_superiores")
-public class OrgaoSuperiorResource {
-	
+@RequestMapping(value = "/unidades_gestoras")
+public class UnidadeGestoraResource {
+
 	@Autowired
-	private OrgaoSuperiorService service;
+	private UnidadeGestoraService service;
 	
 	@GetMapping
-	public ResponseEntity<List<OrgaoSuperior>> findAll() {
-		List<OrgaoSuperior> list = service.findAll();
+	public ResponseEntity<List<UnidadeGestora>> findAll() {
+		List<UnidadeGestora> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<OrgaoSuperior> findById(@PathVariable Long id) {
-		OrgaoSuperior os = service.findById(id);
-		return ResponseEntity.ok().body(os);
+	public ResponseEntity<UnidadeGestora> findById(@PathVariable Long id) {
+		UnidadeGestora obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
 	}
 }
