@@ -15,8 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @SequenceGenerator(name = "seq_portador", initialValue = 10000, allocationSize = 100)
@@ -33,11 +32,10 @@ public class Portador implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "unidadeGestoraId")
-	@JsonBackReference
 	private UnidadeGestora unidadeGestora;
 
 	@OneToMany(mappedBy = "portador")
-	@JsonManagedReference
+	@JsonIgnore
 	private Set<Transacao> transacoes = new HashSet<>();
 
 	public Portador() {
@@ -78,8 +76,15 @@ public class Portador implements Serializable {
 		return unidadeGestora;
 	}
 
+	
 	public void setUnidadeGestora(UnidadeGestora unidadeGestora) {
 		this.unidadeGestora = unidadeGestora;
+	}
+	
+
+	@JsonIgnore
+	public Set<Transacao> getTransacoes() {
+		return transacoes;
 	}
 
 	@Override

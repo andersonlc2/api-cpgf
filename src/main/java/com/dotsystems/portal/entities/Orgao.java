@@ -12,8 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_orgao")
@@ -27,11 +26,10 @@ public class Orgao implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "orgaoSupId")
-	@JsonBackReference
 	private OrgaoSuperior orgaoSuperior;
 
 	@OneToMany(mappedBy = "orgao")
-	@JsonManagedReference
+	@JsonIgnore
 	private Set<UnidadeGestora> unidadesGestoras = new HashSet<>();
 
 	public Orgao() {
@@ -67,6 +65,7 @@ public class Orgao implements Serializable {
 		this.orgaoSuperior = orgaoSuperior;
 	}
 
+	@JsonIgnore
 	public Set<UnidadeGestora> getUnidadesGestoras() {
 		return unidadesGestoras;
 	}

@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_orgao_superior")
@@ -22,8 +22,9 @@ public class OrgaoSuperior implements Serializable {
 	private Long id;
 	private String nome;
 
+	
 	@OneToMany(mappedBy = "orgaoSuperior")
-	@JsonManagedReference
+	@JsonIgnore
 	private Set<Orgao> orgaos = new HashSet<>();
 
 	public OrgaoSuperior() {
@@ -50,6 +51,7 @@ public class OrgaoSuperior implements Serializable {
 		this.nome = nome;
 	}
 
+	@JsonIgnore
 	public Set<Orgao> getOrgao() {
 		return orgaos;
 	}
