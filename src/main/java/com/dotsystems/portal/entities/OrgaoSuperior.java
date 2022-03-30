@@ -55,6 +55,14 @@ public class OrgaoSuperior implements Serializable {
 	public Set<Orgao> getOrgao() {
 		return orgaos;
 	}
+	
+	public Double getTotalGasto() {
+		double soma = 0.0;
+		for (Orgao org : orgaos) {
+			soma += org.getTotalGasto();
+		}
+		return soma;
+	}
 
 	@Override
 	public int hashCode() {

@@ -63,11 +63,16 @@ public class TestConfig implements CommandLineRunner {
 		Transacao t5 = new Transacao(null, 2021, 10, "11328757000125", "LOJAS SAO JOSE COMERCIO VAREJISTA DE CAMA, MESA E BANHO EIRELI", "COMPRA A/V - R$ - APRES", LocalDate.now(), 10544.82, po4);
 		Transacao t6 = new Transacao(null, 2021, 10, "09253608000100", "KREJCI & CIA LTDA", "COMPRA A/V - R$ - APRES", LocalDate.now(), 200.82, po1);
 		
+		Transacao t7 = new Transacao(null, 2021, 10, "-11", "ADD IA LTDA", "COMPRA A/V - R$ - APRES", LocalDate.now(), 10000.0, po1);
+		Transacao t8 = new Transacao(null, 2021, 10, "-11", "JACAKROASKA & CIA LTDA", "COMPRA A/V - R$ - APRES", LocalDate.now(), 5250.0, po1);
+
+		
+		
 		osRepository.saveAll(Arrays.asList(os1, os2));
 		oRepository.saveAll(Arrays.asList(o1, o2));
 		unRepository.saveAll(Arrays.asList(un1, un2, un3));
 		porRepository.saveAll(Arrays.asList(po1, po2, po3, po4));
-		transRepository.saveAll(Arrays.asList(t1, t2, t3, t4, t5, t6));
+		transRepository.saveAll(Arrays.asList(t1, t2, t3, t4, t5, t6, t7, t8));
 		
 	}
 }

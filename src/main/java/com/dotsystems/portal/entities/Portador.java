@@ -71,7 +71,7 @@ public class Portador implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-
+	
 	public UnidadeGestora getUnidadeGestora() {
 		return unidadeGestora;
 	}
@@ -81,12 +81,19 @@ public class Portador implements Serializable {
 		this.unidadeGestora = unidadeGestora;
 	}
 	
-
 	@JsonIgnore
 	public Set<Transacao> getTransacoes() {
 		return transacoes;
 	}
-
+	
+	public Double getTotalGasto() {
+		double soma = 0.0;
+		for (Transacao trans : transacoes) {
+			soma += trans.getValor();
+		}
+		return soma;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

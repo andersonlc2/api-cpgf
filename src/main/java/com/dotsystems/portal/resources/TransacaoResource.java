@@ -30,4 +30,10 @@ public class TransacaoResource {
 		Transacao obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	@GetMapping(value = "/sigilosos")
+	public ResponseEntity<List<Transacao>> findAllSig () {
+		List<Transacao> list = service.findAllSig();
+		return ResponseEntity.ok().body(list);
+	}
 }

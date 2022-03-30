@@ -1,5 +1,6 @@
 package com.dotsystems.portal.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,4 +24,16 @@ public class TransacaoService {
 		Optional<Transacao> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	public List<Transacao> findAllSig() {
+		List<Transacao> listAll = repository.findAll();
+		List<Transacao> listSig = new ArrayList<>();
+		for (Transacao trans : listAll) {
+			if (trans.getDoc_favorecido() == "-11") {
+				listSig.add(trans);
+			}
+		}
+		return listSig;
+	}
+	
 }

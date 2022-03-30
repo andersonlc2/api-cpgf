@@ -69,6 +69,14 @@ public class UnidadeGestora implements Serializable {
 	public Set<Portador> getPortadores() {
 		return portadores;
 	}
+	
+	public Double getTotalGasto() {
+		double soma = 0.0;
+		for (Portador port : portadores) {
+			soma += port.getTotalGasto();
+		}
+		return soma;
+	}
 
 	@Override
 	public int hashCode() {

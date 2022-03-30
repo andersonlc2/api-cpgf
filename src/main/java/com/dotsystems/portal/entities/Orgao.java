@@ -69,6 +69,14 @@ public class Orgao implements Serializable {
 	public Set<UnidadeGestora> getUnidadesGestoras() {
 		return unidadesGestoras;
 	}
+	
+	public Double getTotalGasto() {
+		double soma = 0.0;
+		for (UnidadeGestora unid : unidadesGestoras) {
+			soma += unid.getTotalGasto();
+		}
+		return soma;
+	}
 
 	@Override
 	public int hashCode() {
