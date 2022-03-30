@@ -29,7 +29,7 @@ public class TransacaoService {
 		List<Transacao> listAll = repository.findAll();
 		List<Transacao> listSig = new ArrayList<>();
 		for (Transacao trans : listAll) {
-			if (trans.getDoc_favorecido() == "-11") {
+			if (trans.getPortador().getId() == 34300) {
 				listSig.add(trans);
 			}
 		}
