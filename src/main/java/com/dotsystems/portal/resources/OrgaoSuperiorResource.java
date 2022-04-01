@@ -1,10 +1,7 @@
 package com.dotsystems.portal.resources;
 
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +24,7 @@ public class OrgaoSuperiorResource {
 	@GetMapping
 	public ResponseEntity<Page<OrgaoSuperiorDTO>> findAll(Pageable pageable) {
 		Page<OrgaoSuperior> list = service.findAll(pageable);
-		Page<OrgaoSuperiorDTO> pages = new PageImpl<>(list.stream().map(x -> new OrgaoSuperiorDTO(x)).collect(Collectors.toList()));
+		Page<OrgaoSuperiorDTO> pages = list.map(OrgaoSuperiorDTO::new);
 		return ResponseEntity.ok().body(pages);
 	}
 

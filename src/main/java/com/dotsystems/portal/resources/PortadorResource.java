@@ -1,10 +1,7 @@
 package com.dotsystems.portal.resources;
 
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dotsystems.portal.entities.Portador;
 import com.dotsystems.portal.entities.dto.PortadorDTO;
 import com.dotsystems.portal.services.PortadorServices;
 
@@ -24,8 +22,9 @@ public class PortadorResource {
 	
 	@GetMapping
 	public ResponseEntity<Page<PortadorDTO>> findAll(Pageable pageable) {
-		Page<PortadorDTO> list = new PageImpl<>(service.findAll(pageable).stream().map(x -> new PortadorDTO(x)).collect(Collectors.toList()));
-		return ResponseEntity.ok().body(list);
+		Page<Portador> list = service.findAll(pageable);
+		Page<PortadorDTO> pages = list.map(PortadorDTO::new);
+		return ResponseEntity.ok().body(pages);
 	}
 	
 	@GetMapping(value = "/{id}")
