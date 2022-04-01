@@ -1,9 +1,10 @@
 package com.dotsystems.portal.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dotsystems.portal.entities.UnidadeGestora;
@@ -15,8 +16,8 @@ public class UnidadeGestoraService {
 	@Autowired
 	private UnidadeGestoraRepository repository;
 	
-	public List<UnidadeGestora> findAll() {
-		return repository.findAll();
+	public Page<UnidadeGestora> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 	
 	public UnidadeGestora findById(Long id) {

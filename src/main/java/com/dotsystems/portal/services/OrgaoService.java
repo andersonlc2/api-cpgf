@@ -1,9 +1,10 @@
 package com.dotsystems.portal.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dotsystems.portal.entities.Orgao;
@@ -15,8 +16,8 @@ public class OrgaoService {
 	@Autowired
 	private OrgaoRepository repository;
 	
-	public List<Orgao> findAll() {
-		return repository.findAll();
+	public Page<Orgao> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 	
 	public Orgao findById(Long id) {

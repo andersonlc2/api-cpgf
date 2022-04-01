@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dotsystems.portal.entities.Transacao;
@@ -16,8 +18,8 @@ public class TransacaoService {
 	@Autowired
 	private TransacaoRepository repository;
 
-	public List<Transacao> findAll() {
-		return repository.findAll();
+	public Page<Transacao> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 	
 	public Transacao findById(Long id) {
