@@ -29,7 +29,8 @@ public class Portador implements Serializable {
 	private Long id;
 	private String nome;
 	private String cpf;
-
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "unidadeGestoraId")
 	private UnidadeGestora unidadeGestora;
@@ -116,4 +117,5 @@ public class Portador implements Serializable {
 		Portador other = (Portador) obj;
 		return Objects.equals(id, other.id);
 	}
+
 }

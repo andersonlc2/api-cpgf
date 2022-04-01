@@ -68,4 +68,5 @@ public class PortadorDTO implements Serializable {
 	public Integer getTotalTransacoes() {
 		return totalTransacoes;
 	}
+
 }

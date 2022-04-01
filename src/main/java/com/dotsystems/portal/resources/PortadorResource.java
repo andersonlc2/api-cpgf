@@ -32,4 +32,11 @@ public class PortadorResource {
 		PortadorDTO obj = new PortadorDTO(service.findById(id));
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	@GetMapping(value = "/suspeitos")
+	public ResponseEntity<Page<PortadorDTO>> findSuspect(Pageable pageable) {
+		Page<Portador> list = service.findSuspectPort(pageable);
+		Page<PortadorDTO> pages = list.map(PortadorDTO::new);
+		return ResponseEntity.ok().body(pages);
+	}
 }
