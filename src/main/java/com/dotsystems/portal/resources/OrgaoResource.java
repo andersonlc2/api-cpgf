@@ -1,7 +1,10 @@
 package com.dotsystems.portal.resources;
 
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dotsystems.portal.entities.Orgao;
+import com.dotsystems.portal.entities.dto.OrgaoDTO;
 import com.dotsystems.portal.services.OrgaoService;
 
 @RestController
@@ -20,14 +24,15 @@ public class OrgaoResource {
 	private OrgaoService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<Orgao>> findAll(Pageable pageable) {
+	public ResponseEntity<Page<OrgaoDTO>> findAll(Pageable pageable) {
 		Page<Orgao> list = service.findAll(pageable);
-		return ResponseEntity.ok().body(list);
+		Page<OrgaoDTO> pages = new PageImpl<>(list.stream().map(x -> new OrgaoDTO(x)).collect(Collectors.toList())); 
+		return ResponseEntity.ok().body(pages);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Orgao> findById(@PathVariable Long id) {
-		Orgao orgao = service.findById(id);
+	public ResponseEntity<OrgaoDTO> findById(@PathVariable Long id) {
+		OrgaoDTO orgao = new OrgaoDTO(service.findById(id));
 		return ResponseEntity.ok().body(orgao);
 	}
 }

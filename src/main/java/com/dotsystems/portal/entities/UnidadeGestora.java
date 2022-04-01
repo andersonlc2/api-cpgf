@@ -70,12 +70,22 @@ public class UnidadeGestora implements Serializable {
 		return portadores;
 	}
 	
+	@JsonIgnore
 	public Double getTotalGasto() {
 		double soma = 0.0;
 		for (Portador port : portadores) {
 			soma += port.getTotalGasto();
 		}
 		return soma;
+	}
+	
+	@JsonIgnore
+	public Integer getTotalTransacaoes() {
+		int cont = 0;
+		for (Portador port : portadores) {
+			cont += port.getTransacoes().size();
+		}
+		return cont;
 	}
 
 	@Override

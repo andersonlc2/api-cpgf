@@ -70,12 +70,24 @@ public class Orgao implements Serializable {
 		return unidadesGestoras;
 	}
 	
+	@JsonIgnore
 	public Double getTotalGasto() {
 		double soma = 0.0;
 		for (UnidadeGestora unid : unidadesGestoras) {
 			soma += unid.getTotalGasto();
 		}
 		return soma;
+	}
+	
+	@JsonIgnore
+	public Integer getTotalTransacoes() {
+		int cont = 0;
+		for (UnidadeGestora unid : unidadesGestoras) {
+			for (Portador port : unid.getPortadores()) {
+				cont += port.getTransacoes().size();
+			}
+		}
+		return cont;
 	}
 
 	@Override

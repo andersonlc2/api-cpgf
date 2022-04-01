@@ -86,12 +86,18 @@ public class Portador implements Serializable {
 		return transacoes;
 	}
 	
+	@JsonIgnore
 	public Double getTotalGasto() {
 		double soma = 0.0;
 		for (Transacao trans : transacoes) {
 			soma += trans.getValor();
 		}
 		return soma;
+	}
+	
+	@JsonIgnore
+	public Integer getTotalTransacoes() {
+		return transacoes.size();
 	}
 	
 	@Override

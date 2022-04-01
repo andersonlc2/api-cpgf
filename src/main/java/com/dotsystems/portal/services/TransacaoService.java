@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -27,15 +28,16 @@ public class TransacaoService {
 		return obj.get();
 	}
 	
-	public List<Transacao> findAllSig() {
-		List<Transacao> listAll = repository.findAll();
+	public Page<Transacao> findAllSig(Pageable pageable) {
+		Page<Transacao> listAll = repository.findAll(pageable);
 		List<Transacao> listSig = new ArrayList<>();
 		for (Transacao trans : listAll) {
 			if (trans.getPortador().getId() == 34300) {
 				listSig.add(trans);
 			}
 		}
-		return listSig;
+		Page<Transacao> pages = new PageImpl<>(listSig);
+		return pages;
 	}
 	
 }

@@ -1,7 +1,10 @@
 package com.dotsystems.portal.resources;
 
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dotsystems.portal.entities.OrgaoSuperior;
+import com.dotsystems.portal.entities.dto.OrgaoSuperiorDTO;
 import com.dotsystems.portal.services.OrgaoSuperiorService;
 
 @RestController
@@ -21,15 +25,16 @@ public class OrgaoSuperiorResource {
 	
 
 	@GetMapping
-	public ResponseEntity<Page<OrgaoSuperior>> findAll(Pageable pageable) {
+	public ResponseEntity<Page<OrgaoSuperiorDTO>> findAll(Pageable pageable) {
 		Page<OrgaoSuperior> list = service.findAll(pageable);
-		return ResponseEntity.ok().body(list);
+		Page<OrgaoSuperiorDTO> pages = new PageImpl<>(list.stream().map(x -> new OrgaoSuperiorDTO(x)).collect(Collectors.toList()));
+		return ResponseEntity.ok().body(pages);
 	}
 
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<OrgaoSuperior> findById(@PathVariable Long id) {
-		OrgaoSuperior os = service.findById(id);
+	public ResponseEntity<OrgaoSuperiorDTO> findById(@PathVariable Long id) {
+		OrgaoSuperiorDTO os = new OrgaoSuperiorDTO(service.findById(id));
 		return ResponseEntity.ok().body(os);
 	}
 }

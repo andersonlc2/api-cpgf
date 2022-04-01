@@ -56,12 +56,26 @@ public class OrgaoSuperior implements Serializable {
 		return orgaos;
 	}
 	
+	@JsonIgnore
 	public Double getTotalGasto() {
 		double soma = 0.0;
 		for (Orgao org : orgaos) {
 			soma += org.getTotalGasto();
 		}
 		return soma;
+	}
+	
+	@JsonIgnore
+	public Integer getTotalTransacoes() {
+		int cont = 0;
+		for (Orgao orgao : orgaos) {
+			for (UnidadeGestora unges : orgao.getUnidadesGestoras()) {
+				for (Portador port : unges.getPortadores()) {
+					cont += port.getTransacoes().size();
+				}
+			}
+		}
+		return cont;
 	}
 
 	@Override
